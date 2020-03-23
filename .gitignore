@@ -1,0 +1,6 @@
+# Log files
+flask.log*
+
+# Editor directories and files
+.idea/
+__pycache__/
