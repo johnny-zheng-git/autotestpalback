@@ -4,7 +4,7 @@ from app.interfacetest.urls import  project_mold
 
 
 app = create_app()
-app.register_blueprint(user_mold, url_prefix='/user')
+app.register_blueprint(user_mold,url_prefix='/user')
 app.register_blueprint(project_mold, url_prefix='/project')
 
 if __name__ == '__main__':

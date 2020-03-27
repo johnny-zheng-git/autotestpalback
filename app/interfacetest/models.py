@@ -1,6 +1,7 @@
 ######################################
-# Time:2020/03/18
+# create Time:2020/03/18
 # alter: ZWQ
+# update time: 2020/03/24
 ######################################
 
 from app.common import db
@@ -36,6 +37,35 @@ class ProjectModel(db.Model):
             cls.project_name.like("%" + project_name + "%") if project_name is not None else ""
         ).all
 
+class HostModel(db.Model):
+    __tablename__ = 'adam_host'
+    __table_agrs__ = {"extend_eisting": True}  # 如果表已经被创建过,需要加这个参数提供扩展
+    host_id = db.Column(db.Integer, primary_key=True, autoincrement=True, info='主机id')
+    project_id = db.Column(db.Integer, nullable=False, info="所属项目id")
+    host_name = db.Column(db.String(120), nullable=False, info="名称")
+    host_addr = db.Column(db.String(120), nullable=False,  info="域名")
+    host_desc = db.Column(db.String(500), info="描述")
+    user_id = db.Column(db.Integer, nullable=False, info="所属用户")
+    delete_sign = db.Column(db.Integer, nullable=False, default=0, info="主机删除标志")
+
+
+    def save_to_db(self):
+        '''创建实例，调用save_to_db保存数据'''
+        id = db.session.add(self)
+        db.session.commit()
+        return id
+
+class AuthModel(db.Model):
+    __tablename__ = 'adam_auth'
+    __table_agrs__ = {"extend_eisting": True }  # 如果表已经被创建过,需要加这个参数提供扩展
+    auth_id = db.Column(db.Integer, primary_key=True, autoincrement=True, info='id')
+    project_id = db.Column(db.Integer, nullable=False, info="所属项目")
+    user_id = db.Column(db.Integer, nullable=False, info="赋权用户")
+
+    def save_to_db(self):
+        '''创建实例，调用save_to_db保存数据'''
+        db.session.add(self)
+        db.session.commit()
     # @classmethod
     # def return_all(cls):
     #     '''返回所有的用户'''

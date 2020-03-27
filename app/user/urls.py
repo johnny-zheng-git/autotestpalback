@@ -8,3 +8,4 @@ from .views import *
 
 api.add_resource(Userlogin, '/login')
 api.add_resource(UserRegistration,'/registration')
+api.add_resource(RefreshToken,'/refreshtoken')
